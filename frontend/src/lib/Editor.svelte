@@ -8,7 +8,6 @@
   import StarterKit from '@tiptap/starter-kit';
   import CharacterCount from '@tiptap/extension-character-count';
   import { text } from 'svelte/internal';
-  import Cards from './Cards.svelte';
   import { currentNote, currentId, allNotes, appState } from '../store';
 
   import Storage from './Storage.svelte';
@@ -209,5 +208,3 @@
 {#if editor}
   <p>{editor.storage.characterCount.words()} words</p>
 {/if}
-
-<Cards />

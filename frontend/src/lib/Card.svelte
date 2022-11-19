@@ -1,9 +1,14 @@
 <script>
-  export let query
-  export let answer
+  export let query;
+  export let answer;
+
+  let showAnswer = false;
 </script>
 
-<div class="question-div" >
-  <p id="query">{query}</p>
-  <p id="answer">{answer}</p>
+<div class="question-div">
+  {#if showAnswer}
+    <p id="answer">{answer}</p>
+  {:else}
+    <p id="query">{query}</p>
+  {/if}
 </div>
