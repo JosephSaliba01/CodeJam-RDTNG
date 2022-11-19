@@ -1,9 +1,11 @@
 <script>
-  import Editor from './lib/Editor.svelte'
+  import Editor from './lib/Editor.svelte';
+  import Cards from './lib/Cards.svelte';
 </script>
 
 <main>
-  <Editor/>
+  <Editor />
+  <Cards />
 </main>
 
 <style>
