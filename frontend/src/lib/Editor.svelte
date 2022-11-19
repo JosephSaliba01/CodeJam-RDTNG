@@ -33,6 +33,7 @@
   );
 
   onMount(() => {
+    console.log('g');
     editor = new Editor({
       element: element,
       extensions: [StarterKit, CharacterCount, Bold, Highlight],

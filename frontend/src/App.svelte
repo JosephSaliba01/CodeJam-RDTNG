@@ -2,14 +2,16 @@
   import Editor from './lib/Editor.svelte';
   import FlashCardsView from './lib/Flash-cards-view.svelte';
   import { appState } from './store.js';
+  console.log($appState === 'editor');
 </script>
 
 <main>
-  {#if $appState == 'editor'}
+  <div class={$appState === 'editor' ? '' : 'hidden'}>
     <Editor />
-  {:else}
+  </div>
+  <div class={$appState === 'flashCards' ? '' : 'hidden'}>
     <FlashCardsView />
-  {/if}
+  </div>
 </main>
 
 <style>
@@ -26,5 +28,8 @@
   }
   .read-the-docs {
     color: #888;
+  }
+  .hidden {
+    display: none;
   }
 </style>
