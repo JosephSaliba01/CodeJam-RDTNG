@@ -1,0 +1,7 @@
+
+pandas>=1.4.1
+scikit-learn>=1.0.2
+transformers>=4.24.0
+pytorch-lightning>=1.1.1
+tokenizers>=0.9.4
+sentencepiece>=0.1.94
