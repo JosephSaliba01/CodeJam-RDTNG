@@ -1,8 +1,10 @@
 <script>
   import Editor from './lib/Editor.svelte';
+  import Home from './lib/Home.svelte';
 </script>
 
 <main>
+  <Home />
   <Editor />
 </main>
 

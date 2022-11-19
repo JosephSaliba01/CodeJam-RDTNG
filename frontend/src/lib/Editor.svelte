@@ -9,6 +9,7 @@
   import { questions } from '../store.js';
   import Cards from './Cards.svelte';
   import Dropzone from 'svelte-file-dropzone';
+  import { allNotes } from '../store';
   let element;
   let editor;
 
@@ -68,7 +69,18 @@
       },
       body: string,
     });
-    questions.set((await response.json()).questions);
+
+    let responseJson = await response.json();
+
+    let storedArray = JSON.parse($allNotes);
+    storedArray.push({
+      title: 'title',
+      note: string,
+      questions: responseJson.questions,
+    });
+    allNotes.set(JSON.stringify(storedArray));
+
+    questions.set(responseJson.questions);
   };
 
   async function handleFilesSelect(e) {
