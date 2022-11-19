@@ -128,7 +128,9 @@
     </div>
     <div id="editor-div" bind:this={element} on:drop={handleFilesSelect}>
       <div id="format-div">
-        <button on:click={editor.chain().focus().toggleBold().run()}>
+        <button on:click={editor.chain().focus().toggleBold().run()} class="">
+          B
+        </button> 
       </div>
       <hr>
     </div>
