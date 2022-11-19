@@ -8,8 +8,20 @@
   import { text } from 'svelte/internal';
   import { questions } from '../store.js';
   import Card from './Card.svelte';
+  import Dropzone from 'svelte-file-dropzone';
   let element;
   let editor;
+
+  let files = {
+    accepted: [],
+    rejected: [],
+  };
+
+  function handleFilesSelect(e) {
+    const { acceptedFiles, fileRejections } = e.detail;
+    files.accepted = [...files.accepted, ...acceptedFiles];
+    files.rejected = [...files.rejected, ...fileRejections];
+  }
 
   onMount(() => {
     editor = new Editor({
@@ -74,9 +86,16 @@
 <div bind:this={element} />
 
 {#if editor}
+  <Dropzone on:drop={handleFilesSelect} />
+  <ol>
+    {#each files.accepted as item}
+      <li>{item.name}</li>
+    {/each}
+  </ol>
   <p>{editor.storage.characterCount.words()} words</p>
   <button on:click={generateQuestions(editor.getJSON())}
-    >Generate Questions</button>
+    >Generate Questions</button
+  >
 {/if}
 
 {#if Array.isArray($questions)}
