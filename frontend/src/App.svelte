@@ -5,7 +5,7 @@
 </script>
 
 <main>
-  {#if appState == 'editor'}
+  {#if $appState == 'editor'}
     <Editor />
   {:else}
     <FlashCardsView />

@@ -9,7 +9,7 @@
   import CharacterCount from '@tiptap/extension-character-count';
   import { text } from 'svelte/internal';
   import Cards from './Cards.svelte';
-  import { currentNote, currentId, allNotes } from '../store';
+  import { currentNote, currentId, allNotes, appState } from '../store';
 
   import Storage from './Storage.svelte';
   let element;
@@ -113,6 +113,10 @@
   const unsubscribeToCurrentNote = currentNote.subscribe((value) => {
     if (value != null) editor.commands.setContent(value.note);
   });
+
+  let enterFlashCardsView = () => {
+    appState.set('flashCards');
+  };
 </script>
 
 {#if editor}
@@ -139,6 +143,7 @@
     {#if editor}
       <button
         disabled={$currentNote == null || $currentNote.questions.length <= 0}
+        on:click={enterFlashCardsView}
       >
         View questions
       </button>

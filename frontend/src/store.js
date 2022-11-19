@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 export const currentNote = writable(null);
-export const appState = 'editor';
+export const appState = writable('editor');
 
 // Get the value out of storage on load.
 export const allNotes = writable(localStorage.allNotes || '[]');
