@@ -78,10 +78,3 @@
   <button on:click={generateQuestions(editor.getJSON())}
     >Generate Questions</button>
 {/if}
-
-{#if Array.isArray($questions)}
-  {#each $questions as question}
-    <p>{question.answer}</p>
-    <p>{question.query}</p>
-  {/each}
-{/if}

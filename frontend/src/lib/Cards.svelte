@@ -4,7 +4,16 @@
 
 {#if Array.isArray($questions)}
   {#each $questions as question}
-    <p>{question.answer}</p>
-    <p>{question.query}</p>
+    <div class="card">
+      <p>{question.answer}</p>
+      <p>{question.query}</p>
+      <p>fsdgds</p>
+    </div>
   {/each}
 {/if}
+
+<style>
+  .card {
+    background-color: black;
+  }
+</style>
