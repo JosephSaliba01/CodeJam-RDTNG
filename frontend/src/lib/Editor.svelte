@@ -1,71 +1,79 @@
 <script>
-// @ts-nocheck
+  // @ts-nocheck
 
-  import { onMount, onDestroy } from 'svelte'
-  import { Editor } from '@tiptap/core'
-  import StarterKit from '@tiptap/starter-kit'
-  import CharacterCount from '@tiptap/extension-character-count'
+  import { onMount, onDestroy } from 'svelte';
+  import { Editor } from '@tiptap/core';
+  import StarterKit from '@tiptap/starter-kit';
+  import CharacterCount from '@tiptap/extension-character-count';
+  import { text } from 'svelte/internal';
 
-  let element
-  let editor
+  let element;
+  let editor;
 
   onMount(() => {
     editor = new Editor({
       element: element,
-      extensions: [
-        StarterKit,
-        CharacterCount
-      ],
+      extensions: [StarterKit, CharacterCount],
       content: '',
       autofocus: true,
       editable: true,
       onTransaction: () => {
         // force re-render so `editor.isActive` works as expected
-        editor = editor
+        editor = editor;
       },
-    })
-  })
+    });
+  });
 
   onDestroy(() => {
     if (editor) {
-      editor.destroy()
+      editor.destroy();
     }
-  })
+  });
 
   let generateQuestions = async (data) => {
+    // Clean up to only send final string
+    let paragraphs = data.content;
+    let string = '';
+    paragraphs.forEach((element) => {
+      let paragraph = element.content;
+      let text = paragraph[0].text;
+      string += text + ' ';
+    });
+
     const response = await fetch('http://127.0.0.1:5000/content', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: string,
     });
     return response.json();
-  }
-
+  };
 </script>
 
 {#if editor}
-<!--  <button-->
-<!--          on:click={() => editor.chain().focus().toggleHeading({ level: 1}).run()}-->
-<!--          class:active={editor.isActive('heading', { level: 1 })}-->
-<!--  >-->
-<!--    H1-->
-<!--  </button>-->
-<!--  <button-->
-<!--          on:click={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}-->
-<!--          class:active={editor.isActive('heading', { level: 2 })}-->
-<!--  >-->
-<!--    H2-->
-<!--  </button>-->
-<!--  <button on:click={() => editor.chain().focus().setParagraph().run()} class:active={editor.isActive('paragraph')}>-->
-<!--    P-->
-<!--  </button>-->
+  <!--  <button-->
+  <!--          on:click={() => editor.chain().focus().toggleHeading({ level: 1}).run()}-->
+  <!--          class:active={editor.isActive('heading', { level: 1 })}-->
+  <!--  >-->
+  <!--    H1-->
+  <!--  </button>-->
+  <!--  <button-->
+  <!--          on:click={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}-->
+  <!--          class:active={editor.isActive('heading', { level: 2 })}-->
+  <!--  >-->
+  <!--    H2-->
+  <!--  </button>-->
+  <!--  <button on:click={() => editor.chain().focus().setParagraph().run()} class:active={editor.isActive('paragraph')}>-->
+  <!--    P-->
+  <!--  </button>-->
 {/if}
 
-<div bind:this={element}></div>
+<div bind:this={element} />
 
 {#if editor}
   <p>{editor.storage.characterCount.words()} words</p>
-  <button on:click={generateQuestions(editor.getJSON())}>Generate Questions</button>
+  <button on:click={generateQuestions(editor.getJSON())}
+    >Generate Questions</button
+  >
 {/if}
