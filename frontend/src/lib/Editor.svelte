@@ -7,7 +7,7 @@
   import CharacterCount from '@tiptap/extension-character-count';
   import { text } from 'svelte/internal';
   import { questions } from '../store.js';
-  import Card from './Card.svelte';
+  import Cards from './Cards.svelte';
   let element;
   let editor;
 
@@ -79,8 +79,4 @@
     >Generate Questions</button>
 {/if}
 
-{#if Array.isArray($questions)}
-  {#each $questions as question}
-    <Card query={question.query} answer={question.answer} />
-  {/each}
-{/if}
+<Cards questions={questions} />
