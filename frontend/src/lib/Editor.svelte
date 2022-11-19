@@ -12,6 +12,24 @@
   let element;
   let editor;
 
+  // Stop default drag and drop behaviour
+  window.addEventListener(
+    'dragover',
+    function (e) {
+      e = e || event;
+      e.preventDefault();
+    },
+    false
+  );
+  window.addEventListener(
+    'drop',
+    function (e) {
+      e = e || event;
+      e.preventDefault();
+    },
+    false
+  );
+
   onMount(() => {
     editor = new Editor({
       element: element,
@@ -42,8 +60,6 @@
         string += paragraph[0].text + ' ';
       }
     });
-
-    console.log(string);
 
     const response = await fetch('http://127.0.0.1:5000/content', {
       method: 'POST',
