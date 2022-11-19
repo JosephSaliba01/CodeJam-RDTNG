@@ -16,6 +16,7 @@
       questions: '{}',
     });
     currentId.set($currentId + 1);
+    currentNote.set(storedArray.at(-1));
     allNotes.set(JSON.stringify(storedArray));
   };
 </script>

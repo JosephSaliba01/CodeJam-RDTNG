@@ -74,24 +74,29 @@
 
     let responseJson = await response.json();
 
+    let storedArray = JSON.parse($allNotes);
     // If there is no note selected, e.g., the user just opened the app
     // Create a new one
     if ($currentNote == null) {
-      let storedArray = JSON.parse($allNotes);
       storedArray.push({
-        id: $currentId,
+        id: parseInt($currentId),
         title: 'title',
         note: '',
         questions: '{}',
       });
-      console.log(storedArray);
-      currentId.set($currentId + 1);
+      currentId.set(parseInt($currentId + 1));
       currentNote.set(storedArray.at(-1));
-      allNotes.set(JSON.stringify(storedArray));
+      $currentNote.note = data;
+      $currentNote.questions = responseJson.questions;
+    }
+    // If there is a note selected, overwrite it
+    else {
+      $currentNote.note = data;
+      $currentNote.questions = responseJson.questions;
+      storedArray[$currentNote.id] = $currentNote;
     }
 
-    $currentNote.note = string;
-    $currentNote.questions = responseJson.questions;
+    allNotes.set(JSON.stringify(storedArray));
 
     console.log($currentNote);
   };
