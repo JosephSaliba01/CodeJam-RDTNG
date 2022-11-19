@@ -1,12 +1,12 @@
 <script>
   import Editor from './lib/Editor.svelte';
   import FlashCardsView from './lib/Flash-cards-view.svelte';
-  let state = 'editor';
+  import { appState } from './store.js';
 </script>
 
 <main>
-  {#if state == 'editor'}
-    <Editor/>
+  {#if appState == 'editor'}
+    <Editor />
   {:else}
     <FlashCardsView />
   {/if}

@@ -15,9 +15,6 @@
   let element;
   let editor;
 
-  let didFlashCardsGenerate = false;
-	
-
   // Stop default drag and drop behaviour
   window.addEventListener(
     'dragover',
@@ -86,7 +83,7 @@
         id: parseInt($currentId),
         title: 'title',
         note: '',
-        questions: '{}',
+        questions: [],
       });
       currentId.set(parseInt($currentId + 1));
       currentNote.set(storedArray.at(-1));
@@ -140,12 +137,16 @@
   <div id="editor-header">
     <div id="controls" />
     {#if editor}
-    <button disabled="{!didFlashCardsGenerate}">
+      <button
+        disabled={$currentNote == null || $currentNote.questions.length <= 0}
+      >
         View questions
-    </button>
+      </button>
       <button
         style="margin-left: auto;"
-        on:click={generateQuestions(editor.getJSON())}>Generate Questions</button>
+        on:click={generateQuestions(editor.getJSON())}
+        >Generate Questions</button
+      >
     {/if}
   </div>
   <div id="editor-main">

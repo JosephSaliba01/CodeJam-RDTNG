@@ -13,7 +13,7 @@
       id: $currentId,
       title: 'title',
       note: '',
-      questions: '{}',
+      questions: [],
     });
     currentId.set($currentId + 1);
     currentNote.set(storedArray.at(-1));
