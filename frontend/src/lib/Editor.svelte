@@ -37,8 +37,9 @@
     let string = '';
     paragraphs.forEach((element) => {
       let paragraph = element.content;
-      let text = paragraph[0].text;
-      string += text + ' ';
+      if (!(paragraph == undefined)) {
+        string += paragraph[0].text + ' ';
+      }
     });
 
     const response = await fetch('http://127.0.0.1:5000/content', {
@@ -75,8 +76,7 @@
 {#if editor}
   <p>{editor.storage.characterCount.words()} words</p>
   <button on:click={generateQuestions(editor.getJSON())}
-    >Generate Questions</button
-  >
+    >Generate Questions</button>
 {/if}
 
 {#if Array.isArray($questions)}
