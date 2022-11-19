@@ -9,6 +9,7 @@
 
   let element;
   let editor;
+  let questions = null;
 
   onMount(() => {
     editor = new Editor({
@@ -47,7 +48,7 @@
       },
       body: string,
     });
-    return response.json();
+    questions = (await response.json()).questions;
   };
 </script>
 
@@ -76,4 +77,11 @@
   <button on:click={generateQuestions(editor.getJSON())}
     >Generate Questions</button
   >
+{/if}
+
+{#if questions}
+  {#each questions as question}
+    <p>{question.answer}</p>
+    <p>{question.query}</p>
+  {/each}
 {/if}
