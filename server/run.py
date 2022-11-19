@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return "Welcome to the Quiz Generator!"
 
 @app.route("/content", methods=["POST"])
 def receive_content():
