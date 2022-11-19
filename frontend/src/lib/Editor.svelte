@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
   import { onMount, onDestroy } from 'svelte'
   import { Editor } from '@tiptap/core'
   import StarterKit from '@tiptap/starter-kit'
@@ -30,9 +32,7 @@
     }
   })
 
-  let generateQuestions = async () => {
-    const data = editor.content;
-    console.log(data);
+  let generateQuestions = async (data) => {
     const response = await fetch('http://127.0.0.1:5000/content', {
         method: 'POST',
         headers: {
@@ -42,7 +42,7 @@
     });
     return response.json();
   }
-  
+
 </script>
 
 {#if editor}
@@ -67,5 +67,5 @@
 
 {#if editor}
   <p>{editor.storage.characterCount.words()} words</p>
-  <button on:click={generateQuestions}>Generate Questions</button>
+  <button on:click={generateQuestions(editor.getJSON())}>Generate Questions</button>
 {/if}
