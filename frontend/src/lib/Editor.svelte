@@ -8,10 +8,9 @@
   import StarterKit from '@tiptap/starter-kit';
   import CharacterCount from '@tiptap/extension-character-count';
   import { text } from 'svelte/internal';
-  import { questions } from '../store.js';
   import Cards from './Cards.svelte';
-  import Dropzone from 'svelte-file-dropzone';
-  import { allNotes } from '../store';
+  import { currentNote, currentId, allNotes } from '../store';
+  import Storage from './Storage.svelte';
   let element;
   let editor;
 
@@ -51,6 +50,7 @@
     if (editor) {
       editor.destroy();
     }
+    unsubscribeToCurrentNote();
   });
 
   let generateQuestions = async (data) => {
@@ -74,15 +74,26 @@
 
     let responseJson = await response.json();
 
-    let storedArray = JSON.parse($allNotes);
-    storedArray.push({
-      title: 'title',
-      note: string,
-      questions: responseJson.questions,
-    });
-    allNotes.set(JSON.stringify(storedArray));
+    // If there is no note selected, e.g., the user just opened the app
+    // Create a new one
+    if ($currentNote == null) {
+      let storedArray = JSON.parse($allNotes);
+      storedArray.push({
+        id: $currentId,
+        title: 'title',
+        note: '',
+        questions: '{}',
+      });
+      console.log(storedArray);
+      currentId.set($currentId + 1);
+      currentNote.set(storedArray.at(-1));
+      allNotes.set(JSON.stringify(storedArray));
+    }
 
-    questions.set(responseJson.questions);
+    $currentNote.note = string;
+    $currentNote.questions = responseJson.questions;
+
+    console.log($currentNote);
   };
 
   async function handleFilesSelect(e) {
@@ -92,6 +103,10 @@
     console.log(fileContent);
     editor.commands.setContent(fileContent);
   }
+
+  const unsubscribeToCurrentNote = currentNote.subscribe((value) => {
+    if (value != null) editor.commands.setContent(value.note);
+  });
 </script>
 
 {#if editor}
@@ -112,53 +127,65 @@
   <!--  </button>-->
 {/if}
 
-
 <div id="main-view">
   <div id="editor-header">
-    <div id="controls">
-
-    </div>
+    <div id="controls" />
     {#if editor}
-      <button style="margin-left: auto;" on:click={console.log(editor.isActive('bold'))}>Generate Questions</button>
+      <button
+        style="margin-left: auto;"
+        on:click={generateQuestions(editor.getJSON())}
+        >Generate Questions</button
+      >
     {/if}
   </div>
   <div id="editor-main">
-    <div id="storage-div">
-      <div id="storage-div-scrollable">
-        
-      </div>
-    </div>
+    <Storage />
     <div id="editor-div" bind:this={element} on:drop={handleFilesSelect}>
       <div id="format-div">
         {#if editor}
-          <button on:click={editor.chain().focus().toggleHeading({ level: 1 }).run()} class="format_button {editor.isActive('heading', { level: 1 }) ? 'is_button_active' : 'is_button_inactive'}">
-            <p>
-              H1
-            </p>
+          <button
+            on:click={editor.chain().focus().toggleHeading({ level: 1 }).run()}
+            class="format_button {editor.isActive('heading', { level: 1 })
+              ? 'is_button_active'
+              : 'is_button_inactive'}"
+          >
+            <p>H1</p>
           </button>
-          <button on:click={editor.chain().focus().toggleHeading({ level: 2 }).run()} class="format_button {editor.isActive('heading', { level: 2 }) ? 'is_button_active' : 'is_button_inactive'}">
-            <p>
-              H2
-            </p>
+          <button
+            on:click={editor.chain().focus().toggleHeading({ level: 2 }).run()}
+            class="format_button {editor.isActive('heading', { level: 2 })
+              ? 'is_button_active'
+              : 'is_button_inactive'}"
+          >
+            <p>H2</p>
           </button>
-          <button on:click={editor.chain().focus().toggleBold().run()} class="format_button {editor.isActive('bold') ? 'is_button_active' : 'is_button_inactive'}">
-            <p style="font-weight: 700;">
-              B
-            </p>
+          <button
+            on:click={editor.chain().focus().toggleBold().run()}
+            class="format_button {editor.isActive('bold')
+              ? 'is_button_active'
+              : 'is_button_inactive'}"
+          >
+            <p style="font-weight: 700;">B</p>
           </button>
-          <button on:click={editor.chain().focus().toggleItalic().run()} class="format_button {editor.isActive('italic') ? 'is_button_active' : 'is_button_inactive'}">
-            <p style="font-style:italic">
-              I
-            </p>
+          <button
+            on:click={editor.chain().focus().toggleItalic().run()}
+            class="format_button {editor.isActive('italic')
+              ? 'is_button_active'
+              : 'is_button_inactive'}"
+          >
+            <p style="font-style:italic">I</p>
           </button>
-          <button on:click={editor.chain().focus().toggleHighlight().run()} class="format_button {editor.isActive('highlight') ? 'is_button_active' : 'is_button_inactive'}">
-            <p style="font-style:italic">
-              h
-            </p>
-          </button> 
+          <button
+            on:click={editor.chain().focus().toggleHighlight().run()}
+            class="format_button {editor.isActive('highlight')
+              ? 'is_button_active'
+              : 'is_button_inactive'}"
+          >
+            <p style="font-style:italic">h</p>
+          </button>
         {/if}
       </div>
-      <hr>
+      <hr />
     </div>
   </div>
 </div>
@@ -167,4 +194,4 @@
   <p>{editor.storage.characterCount.words()} words</p>
 {/if}
 
-<Cards {questions} />
+<Cards />
