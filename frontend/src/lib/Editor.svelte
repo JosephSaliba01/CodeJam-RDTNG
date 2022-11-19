@@ -98,13 +98,33 @@
   <!--  </button>-->
 {/if}
 
-<div bind:this={element} on:drop={handleFilesSelect} />
+
+<div id="main-view">
+  <div id="editor-header">
+    <div id="controls">
+
+    </div>
+    {#if editor}
+      <button style="margin-left: auto;" on:click={generateQuestions(editor.getJSON())}>Generate Questions</button>
+    {/if}
+  </div>
+  <div id="editor-main">
+    <div id="storage-div">
+      <div id="storage-div-scrollable">
+        
+      </div>
+    </div>
+    <div id="editor-div" bind:this={element} on:drop={handleFilesSelect}>
+      <div id="format-div">
+        <button on:click={editor.chain().focus().toggleBold().run()}>
+      </div>
+      <hr>
+    </div>
+  </div>
+</div>
 
 {#if editor}
   <p>{editor.storage.characterCount.words()} words</p>
-  <button on:click={generateQuestions(editor.getJSON())}
-    >Generate Questions</button
-  >
 {/if}
 
 <Cards {questions} />
