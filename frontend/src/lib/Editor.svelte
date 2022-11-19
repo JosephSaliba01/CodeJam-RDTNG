@@ -12,19 +12,6 @@
   let element;
   let editor;
 
-  let files = {
-    accepted: [],
-    rejected: [],
-  };
-
-  async function handleFilesSelect(e) {
-    let file = e.dataTransfer.files[0];
-    let fileContent = await file.text();
-    fileContent.replace(/\r/g, '\n');
-    console.log(fileContent);
-    editor.commands.setContent(fileContent);
-  }
-
   onMount(() => {
     editor = new Editor({
       element: element,
@@ -56,6 +43,8 @@
       }
     });
 
+    console.log(string);
+
     const response = await fetch('http://127.0.0.1:5000/content', {
       method: 'POST',
       headers: {
@@ -65,6 +54,14 @@
     });
     questions.set((await response.json()).questions);
   };
+
+  async function handleFilesSelect(e) {
+    let file = e.dataTransfer.files[0];
+    let fileContent = await file.text();
+    fileContent = fileContent.replaceAll(/\r?\n|\r/g, '<br>');
+    console.log(fileContent);
+    editor.commands.setContent(fileContent);
+  }
 </script>
 
 {#if editor}
