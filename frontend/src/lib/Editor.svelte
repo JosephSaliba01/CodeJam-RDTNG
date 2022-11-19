@@ -6,10 +6,10 @@
   import StarterKit from '@tiptap/starter-kit';
   import CharacterCount from '@tiptap/extension-character-count';
   import { text } from 'svelte/internal';
+  import { questions } from '../store.js';
 
   let element;
   let editor;
-  let questions = null;
 
   onMount(() => {
     editor = new Editor({
@@ -48,7 +48,7 @@
       },
       body: string,
     });
-    questions = (await response.json()).questions;
+    questions.set((await response.json()).questions);
   };
 </script>
 
@@ -79,8 +79,8 @@
   >
 {/if}
 
-{#if questions}
-  {#each questions as question}
+{#if Array.isArray($questions)}
+  {#each $questions as question}
     <p>{question.answer}</p>
     <p>{question.query}</p>
   {/each}
