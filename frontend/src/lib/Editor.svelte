@@ -16,7 +16,7 @@
     currentTitle,
     loading,
     current_FC_index,
-    current_Q_index
+    current_Q_index,
   } from '../store';
 
   import Storage from './Storage.svelte';
@@ -273,6 +273,9 @@
   }
 
   #title-div {
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
     padding: 0;
   }
 
@@ -295,7 +298,7 @@
     margin-left: auto;
     height: 3rem;
     width: 3rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   #editor-div {
@@ -305,7 +308,6 @@
   .title {
     box-sizing: border-box;
     font-size: 2rem;
-    margin-top: 1rem;
     border-radius: 10px;
     border-style: solid;
     font-weight: 600;
