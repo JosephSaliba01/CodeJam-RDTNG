@@ -1,8 +1,9 @@
 from application.model import Quiz, Question
 import random
 
+
 def generate_quiz(content: list, generator) -> Quiz:
-    
+
     generated_QA = []
 
     for paragraph in content:

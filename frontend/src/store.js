@@ -7,6 +7,10 @@ export const appState = writable('editor');
 export const allNotes = writable(localStorage.allNotes || '[]');
 export const currentId = writable(parseInt(localStorage.currentId) || 0);
 
+export const currentTitle = writable(
+  'Note ' + parseInt(localStorage.currentId || 0)
+);
+
 // Anytime the store changes, update the local storage value.
 allNotes.subscribe((value) => (localStorage.allNotes = value));
 currentId.subscribe((value) => (localStorage.currentId = value));
