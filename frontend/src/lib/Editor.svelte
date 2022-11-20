@@ -39,7 +39,6 @@
   );
 
   onMount(() => {
-    console.log('g');
     editor = new Editor({
       element: element,
       extensions: [StarterKit, CharacterCount, Bold, Highlight],
@@ -63,11 +62,13 @@
   let generateQuestions = async (data) => {
     // Clean up to only send final string
     let paragraphs = data.content;
-    let string = '';
+    
+    let array_of_paragraphs = []
+
     paragraphs.forEach((element) => {
       let paragraph = element.content;
       if (!(paragraph == undefined)) {
-        string += paragraph[0].text + ' ';
+        array_of_paragraphs.push(paragraph[0].text);
       }
     });
 
@@ -76,7 +77,7 @@
       headers: {
         'Content-Type': 'application/json',
       },
-      body: string,
+      body: JSON.stringify(array_of_paragraphs),
     });
 
     let responseJson = await response.json();
