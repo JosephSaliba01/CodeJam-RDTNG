@@ -107,7 +107,6 @@ main {
 }
 
 #storage-div div {
-  overflow-y: scroll;
 }
 
 #editor-header {
@@ -191,7 +190,7 @@ button:focus-visible {
 
 .ProseMirror {
   color: black;
-  height: 75vh;
+  height: 70vh;
   text-align: left;
   overflow-y: scroll;
   font-size: 14px;
