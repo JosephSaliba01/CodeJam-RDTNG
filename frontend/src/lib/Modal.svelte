@@ -62,11 +62,11 @@ onDestroy(()=>{
 <div id="topModal" class:visible bind:this={topDiv} on:click={()=>close(1)}>
 	<div id='modal' on:click|stopPropagation={()=>{}}>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<svg id="close" on:click={()=>close(1)} viewBox="0 0 12 12">
+		<!-- <svg id="close" on:click={()=>close(1)} viewBox="0 0 12 12">
 			<circle cx=6 cy=6 r=6 />
 			<line x1=3 y1=3 x2=9 y2=9 />
 			<line x1=9 y1=3 x2=3 y2=9 />
-		</svg>
+		</svg> -->
 		<div id='modal-content'>
 			<slot></slot>
 		</div>
@@ -91,8 +91,7 @@ onDestroy(()=>{
 		position: relative;
 		border-radius: 6px;
 		background: white;
-    border: 2px solid #000;
-		filter: drop-shadow(5px 5px 5px #555);
+		/* filter: drop-shadow(5px 5px 5px #555); */
 		padding: 1em;
 	}
 

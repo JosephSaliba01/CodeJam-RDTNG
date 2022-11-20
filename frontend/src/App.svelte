@@ -1,9 +1,15 @@
 <script>
   import Editor from './lib/Editor.svelte';
+  import FlashCardsView from './lib/Flash-cards-view.svelte';
+  let state = 'editor';
 </script>
 
 <main>
-  <Editor />
+  {#if state == 'editor'}
+    <Editor/>
+  {:else}
+    <FlashCardsView />
+  {/if}
 </main>
 
 <style>

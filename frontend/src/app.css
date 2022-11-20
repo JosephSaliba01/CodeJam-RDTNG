@@ -247,3 +247,8 @@ body {
   font-family: Softers;
   src: url("assets/Softers.otf") format("opentype");
 }
+
+.question-div {
+  padding: 5rem;
+  font-size: 25px;
+}
