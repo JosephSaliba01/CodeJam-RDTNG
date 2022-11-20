@@ -44,14 +44,6 @@
     font-size: 20px;
   }
 
-  .newNoteButton:hover {
-    background-color: rgb(31, 117, 31);
-  }
-
-  .newNoteButton:active {
-    background-color: rgb(24, 93, 24);
-  }
-
   .noteButtonContainer {
     display: flex;
     flex-direction: column;

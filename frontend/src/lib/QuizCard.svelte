@@ -2,34 +2,84 @@
   export let query;
   export let choices;
   export let answer;
+
+  let answered = false;
+  let correct = false;
+
+  let checkAnswer = (choice) => {
+    console.log('hi');
+    if (choice === answer) {
+      correct = true;
+    }
+    answered = true;
+  };
 </script>
 
-<div id="quiz-card-main-view">
+<div
+  id="quiz-card-main-view"
+  class={correct ? 'correct' : 'wrong'}
+  class:answered
+>
   <div id="quiz-card-question-view">
     <p>{query}</p>
   </div>
   <div id="quiz-card-choices-view">
     {#if Array.isArray(choices)}
-      {#each choices as choice}
-        <button class="quiz-card-choice-button">{choice}</button>
+      {#each choices as choice, i}
+        <button
+          class="quiz-card-choice-button color{i}"
+          on:click={() => checkAnswer(choice)}
+          disabled={answered}
+          >{choice}
+        </button>
       {/each}
     {/if}
   </div>
 </div>
 
 <style>
-  .quiz-card-main-view {
-    background-color: white;
-    height: 12vh;
-    width: 15vw;
-    margin: 10%;
-    border-radius: 5px;
-    display: grid;
-    grid-template-columns: 1fr;
+  .answered.correct {
+    background-color: rgb(154, 255, 154) !important;
+    transition: 2s;
   }
 
-  .question-div div {
-    grid-row-start: 1;
-    grid-column-start: 1;
+  .answered.wrong {
+    background-color: rgb(255, 140, 140) !important;
+  }
+
+  #quiz-card-main-view {
+    background-color: white;
+    height: 30vh;
+    width: 30vw;
+    margin: 10%;
+    border-radius: 10px;
+    display: grid;
+  }
+
+  #quiz-card-choices-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  button {
+    border-radius: 0;
+  }
+
+  .color0 {
+    background-color: rgb(161, 241, 241);
+    border-top-left-radius: 10px;
+  }
+  .color1 {
+    background-color: rgb(255, 253, 185);
+    border-top-right-radius: 10px;
+  }
+  .color2 {
+    background-color: rgb(176, 156, 249);
+    border-bottom-left-radius: 10px;
+  }
+  .color3 {
+    background-color: rgb(255, 172, 244);
+    border-bottom-right-radius: 10px;
   }
 </style>
