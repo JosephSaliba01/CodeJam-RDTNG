@@ -19,6 +19,7 @@
     "@tiptap/extension-hard-break": "^2.0.0-beta.202",
     "@tiptap/extension-highlight": "^2.0.0-beta.202",
     "@tiptap/starter-kit": "^2.0.0-beta.202",
+    "jspdf": "^2.5.1",
     "svelte-file-dropzone": "^1.0.0"
   }
 }
