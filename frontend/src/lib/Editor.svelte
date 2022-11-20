@@ -143,10 +143,16 @@
     <div id="controls" />
     {#if editor}
       <button
+      disabled={$currentNote == null || $currentNote.questions.length <= 0}
+      on:click={enterFlashCardsView}
+    >
+      View questions
+    </button>
+      <button
         disabled={$currentNote == null || $currentNote.questions.length <= 0}
         on:click={enterFlashCardsView}
       >
-        View questions
+        View QA
       </button>
       <button
         style="margin-left: auto;"
