@@ -26,7 +26,11 @@
 
 {#if Array.isArray(questions)}
   {#if questions.length > $current_FC_index}
-  <Card query={questions[$current_FC_index].query} answer={questions[$current_FC_index].answer} />
+    {#each questions as question, index}
+    <div style="{index === $current_FC_index ? 'display: block' : 'display: none' }">
+      <Card query={question.query} answer={question.answer} />
+    </div>
+    {/each}
   <div class="cards-view-bottom" >
     <button on:click={prevCard}>&#60</button>
     {$current_FC_index + 1} / {questions.length}

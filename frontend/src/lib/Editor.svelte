@@ -97,7 +97,7 @@
       }
     });
 
-    const response = await fetch('http://127.0.0.1:5000/content', {
+    const response = await fetch('http://34.95.16.60:5000/content', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
