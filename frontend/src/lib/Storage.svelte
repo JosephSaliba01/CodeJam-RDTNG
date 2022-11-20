@@ -71,6 +71,7 @@
   .noteButton {
     text-align: left;
     width: 100%;
+    font-size: 1rem;
   }
 
   .noteButtonContainer::-webkit-scrollbar-track {
