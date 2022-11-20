@@ -20,8 +20,14 @@
   class={correct ? 'correct' : 'wrong'}
   class:answered
 >
-  <div id="quiz-card-question-view">
+  <div id="quiz-card-question-view" class="p-container">
     <p>{query}</p>
+  </div>
+  <div
+    id="quiz-card-answer-view"
+    class="{answered ? '' : 'hidden'} p-container"
+  >
+    <p>{answer}</p>
   </div>
   <div id="quiz-card-choices-view">
     {#if Array.isArray(choices)}
@@ -38,6 +44,14 @@
 </div>
 
 <style>
+  p {
+    margin-bottom: 0;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+
   .answered.correct {
     background-color: rgb(154, 255, 154) !important;
     transition: 0.1s ease-out;
