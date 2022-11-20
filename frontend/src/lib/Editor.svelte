@@ -160,7 +160,9 @@
   let deleteNote = () => {
     let storedArray = JSON.parse($allNotes);
     var removeIndex = storedArray
-      .map((item) => item.id)
+      .map((item) => {
+        if (item != null) return item.id;
+      })
       .indexOf($currentNote.id);
     removeIndex >= 0 && storedArray.splice(removeIndex, 1);
     allNotes.set(JSON.stringify(storedArray));
@@ -260,6 +262,12 @@
 </div>
 
 <style>
+  #editor-div {
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
   .saveButton {
     background-color: rgb(157, 228, 254);
   }
