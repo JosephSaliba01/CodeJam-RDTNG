@@ -10,9 +10,18 @@
   import { text } from 'svelte/internal';
   import Cards from './Cards.svelte';
   import { currentNote, currentId, allNotes } from '../store';
+  import Modal, {getModal} from './Modal.svelte';
+
   import Storage from './Storage.svelte';
   let element;
   let editor;
+
+  let selection
+	
+	// Callback function provided to the `open` function, it receives the value given to the `close` function call, or `undefined` if the Modal was closed with escape or clicking the X, etc.
+	function setSelection(res){
+		selection=res
+	}
 
   // Stop default drag and drop behaviour
   window.addEventListener(
@@ -127,15 +136,22 @@
   <!--  </button>-->
 {/if}
 
+<button on:click={()=>getModal().open()}>
+  Open First Popup
+</button>
+<Modal>
+  <div >
+
+  </div>
+</Modal>
+
 <div id="main-view">
   <div id="editor-header">
     <div id="controls" />
     {#if editor}
       <button
         style="margin-left: auto;"
-        on:click={generateQuestions(editor.getJSON())}
-        >Generate Questions</button
-      >
+        on:click={generateQuestions(editor.getJSON())}>Generate Questions</button>
     {/if}
   </div>
   <div id="editor-main">
