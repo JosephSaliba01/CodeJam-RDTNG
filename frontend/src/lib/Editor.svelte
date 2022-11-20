@@ -19,6 +19,7 @@
 
   import Storage from './Storage.svelte';
   import app from '../main';
+  import Process from './Process.svelte';
   let element;
   let editor;
 
@@ -43,10 +44,24 @@
   onMount(() => {
     editor = new Editor({
       element: element,
-      extensions: [StarterKit, CharacterCount, Bold, Highlight],
+      extensions: [
+        StarterKit.configure({
+          listItem: false,
+          bulletList: false,
+          orderedList: false,
+          codeBlock: false,
+          blockquote: false,
+        }),
+
+        CharacterCount,
+        Bold,
+        Highlight,
+      ],
       content: '',
       autofocus: true,
       editable: true,
+      disablePasteRules: true,
+      disableInputRules: true,
       onTransaction: () => {
         // force re-render so `editor.isActive` works as expected
         editor = editor;
@@ -62,6 +77,8 @@
   });
 
   let generateQuestions = async (data) => {
+    console.log(data);
+
     loading.set(true);
 
     // Clean up to only send final string
@@ -70,9 +87,11 @@
     let array_of_paragraphs = [];
 
     paragraphs.forEach((element) => {
-      let paragraph = element.content;
-      if (!(paragraph == undefined)) {
-        array_of_paragraphs.push(paragraph[0].text);
+      if (element.type == 'paragraph') {
+        let paragraph = element.content;
+        if (!(paragraph == undefined)) {
+          array_of_paragraphs.push(paragraph[0].text);
+        }
       }
     });
 
@@ -244,10 +263,6 @@
     </div>
   </div>
 </div>
-
-{#if editor}
-  <p>{editor.storage.characterCount.words()} words</p>
-{/if}
 
 <style>
   .hidden {
