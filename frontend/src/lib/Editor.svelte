@@ -182,20 +182,23 @@
           >🗑️
         </button>
         <button
+          class="topButton enterQuizButton"
           disabled={$currentNote == null || $currentNote.questions.length <= 0}
           on:click={enterQuizView}
         >
           Take quiz
         </button>
         <button
-          class="topButton"
+          class="topButton enterFlashCardsButton"
           disabled={$currentNote == null || $currentNote.questions.length <= 0}
           on:click={enterFlashCardsView}
         >
           Flash cards
         </button>
-        <button class="topButton" on:click={generateQuestions(editor.getJSON())}
-          >Generate Questions</button
+        <button
+          class="topButton saveButton"
+          on:click={generateQuestions(editor.getJSON())}
+          >Save and Generate</button
         >
       </div>
       <div id="format-div">
@@ -253,12 +256,26 @@
 </div>
 
 <style>
+  .saveButton {
+    background-color: rgb(157, 228, 254);
+  }
+
+  .enterFlashCardsButton:enabled {
+    background-color: rgb(157, 254, 193);
+  }
+
+  .enterQuizButton:enabled {
+    background-color: rgb(157, 254, 193);
+  }
+
   #title-div {
     padding: 0;
   }
 
   #title-div > button {
-    min-height: 4rem;
+    min-height: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .wordCount {
