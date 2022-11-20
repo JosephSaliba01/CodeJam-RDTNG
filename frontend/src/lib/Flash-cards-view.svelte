@@ -35,3 +35,11 @@
 <button on:click={showEditor}>Back to editor</button>
 <button on:click={generatePdf}>Generate PDF</button>
 <Cards />
+
+<style>
+  button {
+    min-height: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+</style>
