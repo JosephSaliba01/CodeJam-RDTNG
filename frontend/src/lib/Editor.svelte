@@ -178,7 +178,7 @@
   <div id="editor-main">
     <Storage />
     <div id="editor-div" bind:this={element} on:drop={handleFilesSelect}>
-      <input type="text" bind:value={$currentTitle} />
+      <input type="text" bind:value={$currentTitle} class="title" />
       <div id="format-div">
         {#if editor}
           <button
@@ -233,6 +233,20 @@
 {/if}
 
 <style>
+  #editor-div {
+    text-align: left;
+  }
+
+  .title {
+    box-sizing: border-box;
+    font-size: 2rem;
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: 10px;
+    border-style: solid;
+    font-weight: 600;
+  }
+
   #editor-header {
     display: flex;
     gap: 2%;
