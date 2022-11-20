@@ -95,7 +95,6 @@ main {
 
 #format-div {
   padding: 0.125rem !important;
-  height: 6vh;
   display: flex;
   align-items: center;
 }
@@ -144,8 +143,8 @@ main {
   border-radius: 0.3rem;
   padding: 0.1rem 0.4rem;
   accent-color: black;
-  width: 5vh;
-  height: 5vh;
+  width: 3rem;
+  height: 3rem;
 }
 
 .format_button p{
@@ -198,6 +197,7 @@ button:focus-visible {
   height: 75vh;
   text-align: left;
   overflow-y: scroll;
+  font-size: 14px;
 }
 
 .ProseMirror p {
