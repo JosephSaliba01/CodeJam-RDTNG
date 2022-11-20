@@ -11,6 +11,8 @@ export const currentTitle = writable(
   'Note ' + parseInt(localStorage.currentId || 0)
 );
 
+export const loading = writable(false);
+
 // Anytime the store changes, update the local storage value.
 allNotes.subscribe((value) => (localStorage.allNotes = value));
 currentId.subscribe((value) => (localStorage.currentId = value));

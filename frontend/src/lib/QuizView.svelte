@@ -18,7 +18,9 @@
   $: seconds = Math.floor($timer - minutes * 60)
 </script>
 
-<button on:click={showEditor}>End quiz</button>
+<div>
+  <button on:click={showEditor}>End quiz</button>
+</div>
 
 {#if timer < 1}
   <h1>Time's up!</h1>

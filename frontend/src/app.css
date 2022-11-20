@@ -22,15 +22,15 @@ button {
   background-color: white;
 }
 
-button:hover {
+button:hover:enabled {
   background-image: linear-gradient(rgb(0 0 0/10%) 0 0);
 }
 
-button:active {
+button:active:enabled {
   background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
 }
 
-button:focus {
+button:focus:enabled {
   outline: none !important;
 }
 
@@ -95,15 +95,10 @@ main {
 
 #format-div {
   padding: 0.125rem !important;
-  height: 6vh;
   display: flex;
   align-items: center;
 }
 
-#format-div button {
-  margin-right: 2vh;
-  
-}
 
 #storage-div {
   width: 25%;
@@ -117,7 +112,6 @@ main {
 
 #editor-header {
   display: flex;
-  height: 5vh;
   margin: 0.5rem;
   border-radius: 1rem;
 }
@@ -145,13 +139,13 @@ main {
   border-radius: 0.3rem;
   padding: 0.1rem 0.4rem;
   accent-color: black;
-  width: 5vh;
-  height: 5vh;
+  width: 3rem;
+  height: 3rem;
 }
 
 .format_button p{
   margin:0;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
 }
 
 .format_button:hover {
@@ -199,6 +193,7 @@ button:focus-visible {
   height: 75vh;
   text-align: left;
   overflow-y: scroll;
+  font-size: 14px;
 }
 
 .ProseMirror p {
@@ -272,4 +267,9 @@ body {
   margin: 0;
   line-height: normal;
   margin-bottom: 2vh !important;
+}
+
+html,
+body {
+  margin: 0px;
 }

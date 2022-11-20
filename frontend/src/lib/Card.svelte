@@ -17,11 +17,15 @@
 </div>
 
 <style>
+  p {
+    font-size: 1.5rem;
+  }
+
   .question-div {
     background-color: white;
-    height: 12vh;
-    width: 15vw;
-    margin: 10%;
+    height: 12rem;
+    width: 12rem;
+    margin: 10% 0;
     border-radius: 5px;
     display: grid;
     grid-template-columns: 1fr;

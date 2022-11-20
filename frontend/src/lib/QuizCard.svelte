@@ -40,18 +40,19 @@
 <style>
   .answered.correct {
     background-color: rgb(154, 255, 154) !important;
-    transition: 2s;
+    transition: 0.1s ease-out;
   }
 
   .answered.wrong {
     background-color: rgb(255, 140, 140) !important;
+    transition: 0.1s ease-out;
   }
 
   #quiz-card-main-view {
     background-color: white;
     height: 30vh;
     width: 30vw;
-    margin: 10%;
+    margin: 10% 0;
     border-radius: 10px;
     display: grid;
   }
