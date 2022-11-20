@@ -1,13 +1,15 @@
 <script>
   import Editor from './lib/Editor.svelte';
   import FlashCardsView from './lib/Flash-cards-view.svelte';
-  import Quiz from './lib/Quiz.svelte';
   import QuizView from './lib/QuizView.svelte';
-  import { appState } from './store.js';
+  import { appState, loading } from './store.js';
   console.log($appState === 'editor');
 </script>
 
 <main>
+  <div class="loading" class:hidden={!$loading}>
+    <div class="lds-dual-ring" />
+  </div>
   <div class={$appState === 'editor' ? '' : 'hidden'}>
     <Editor />
   </div>
@@ -15,11 +17,50 @@
     <FlashCardsView />
   </div>
   <div class={$appState === 'quiz' ? '' : 'hidden'}>
-    <QuizView/>
+    <QuizView />
   </div>
 </main>
 
 <style>
+  .lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-dual-ring:after {
+    content: ' ';
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .loading {
+    position: fixed;
+    z-index: 99999;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.4;
+    top: 0%;
+    left: 0%;
+    font-size: 10rem;
+    text-align: center;
+    line-height: 100vh;
+  }
+
   .logo {
     height: 6em;
     padding: 1.5em;

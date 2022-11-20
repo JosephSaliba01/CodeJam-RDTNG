@@ -4,6 +4,7 @@
   let showEditor = () => appState.set('editor');
 </script>
 
-<button on:click={showEditor}>End quiz</button>
-
+<div>
+  <button on:click={showEditor}>End quiz</button>
+</div>
 <QuizCards />

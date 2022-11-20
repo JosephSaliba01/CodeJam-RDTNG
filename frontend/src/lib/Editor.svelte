@@ -14,6 +14,7 @@
     allNotes,
     appState,
     currentTitle,
+    loading,
   } from '../store';
 
   import Storage from './Storage.svelte';
@@ -61,6 +62,8 @@
   });
 
   let generateQuestions = async (data) => {
+    loading.set(true);
+
     // Clean up to only send final string
     let paragraphs = data.content;
 
@@ -108,7 +111,7 @@
 
     allNotes.set(JSON.stringify(storedArray));
 
-    console.log($currentNote);
+    loading.set(false);
   };
 
   async function handleFilesSelect(e) {
