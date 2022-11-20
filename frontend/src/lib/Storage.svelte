@@ -24,17 +24,15 @@
 </script>
 
 <div id="storage-div">
-  <div id="storage-div-scrollable">
-    <button class="newNoteButton" on:click={makeNewNote}>+ New Note</button>
-    <div class="noteButtonContainer">
-      {#each JSON.parse($allNotes) as note}
-        {#if note != null}
-          <button class="noteButton" on:click={() => setCurrentNote(note)}
-            >{note.title}</button
-          >
-        {/if}
-      {/each}
-    </div>
+  <button class="newNoteButton" on:click={makeNewNote}>+ New Note</button>
+  <div class="noteButtonContainer">
+    {#each JSON.parse($allNotes) as note}
+      {#if note != null}
+        <button class="noteButton" on:click={() => setCurrentNote(note)}
+          >{note.title}</button
+        >
+      {/if}
+    {/each}
   </div>
 </div>
 
@@ -52,6 +50,7 @@
   }
 
   .noteButton {
+    text-align: left;
     width: 100%;
   }
 </style>
