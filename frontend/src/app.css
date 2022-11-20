@@ -15,17 +15,17 @@
   -webkit-text-size-adjust: 100%;
 }
 
-button {
+.new_note_button {
   border: none;
   border-radius: 5px;
   background-color: white;
 }
 
-button:hover {
+.new_note_button:hover {
   background-color: rgb(222, 222, 222);
 }
 
-button:active {
+.new_note_button:active {
   background-color: rgb(204, 204, 204);
 }
 
@@ -46,12 +46,14 @@ body {
   min-height: 100vh;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  word-break: break-all;
+h1, h2 {
+  word-break: keep-all;
+  margin: 0 !important;
+  line-height: normal;
+  margin-bottom: 2vh !important;
 }
 
 h1 {
-  margin: 0 !important;
   font-size: 2.5em;
   line-height: 1.1;
 }
@@ -95,6 +97,7 @@ main {
 
 #format-div button {
   margin-right: 2vh;
+  
 }
 
 #storage-div {
@@ -143,7 +146,7 @@ main {
 
 .format_button p{
   margin:0;
-  font-size: 2.2rem;
+  font-size: 1.75rem;
 }
 
 .format_button:hover {
@@ -195,7 +198,9 @@ button:focus-visible {
 
 .ProseMirror p {
   margin-top: 0;
-  word-break: break-all;
+  margin-bottom: 1.5vh;
+  word-break:keep-all;
+  line-height: 1.125;
 }
 
 .ProseMirror:focus {
@@ -252,4 +257,14 @@ body {
 .question-div {
   padding: 5rem;
   font-size: 25px;
+  width: 25vw;
+  height: 25vh;
+  min-width: 275px;
+  min-height: 100px;
+  font-size: 2.5vw;
+}
+
+.question-div p {
+  margin: 0;
+  line-height: normal;
 }

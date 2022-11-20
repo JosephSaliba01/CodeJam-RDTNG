@@ -23,9 +23,9 @@
 
 <div id="storage-div">
   <div id="storage-div-scrollable">
-    <button on:click={makeNewNote}>+ New Note</button>
+    <button class="new_note_button" on:click={makeNewNote}>+ New Note</button>
     {#each JSON.parse($allNotes) as note}
-      <button on:click={() => setCurrentNote(note)}>{note.title}</button>
+      <button class="new_note_button" on:click={() => setCurrentNote(note)}>{note.title}</button>
     {/each}
   </div>
 </div>
