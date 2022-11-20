@@ -173,10 +173,6 @@
 </script>
 
 <div id="main-view">
-  <div id="editor-header">
-    <div id="controls" />
-    {#if editor}{/if}
-  </div>
   <div id="editor-main">
     <Storage />
     <div id="editor-div" bind:this={element} on:drop={handleFilesSelect}>
