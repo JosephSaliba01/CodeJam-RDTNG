@@ -133,6 +133,18 @@
   let enterFlashCardsView = () => {
     appState.set('flashCards');
   };
+
+  let deleteNote = () => {
+    let storedArray = JSON.parse($allNotes);
+    var removeIndex = storedArray
+      .map((item) => item.id)
+      .indexOf($currentNote.id);
+    removeIndex >= 0 && storedArray.splice(removeIndex, 1);
+    allNotes.set(JSON.stringify(storedArray));
+    currentNote.set(null);
+    editor.commands.setContent('');
+    currentTitle.set('Note ' + $currentId);
+  };
 </script>
 
 {#if editor}
@@ -221,6 +233,11 @@
           >
             <p style="font-style:italic">h</p>
           </button>
+          <button
+            on:click={deleteNote}
+            class="delete_button {$currentNote == null ? 'hidden' : ''}"
+            >🗑️
+          </button>
         {/if}
       </div>
       <hr />
@@ -233,6 +250,17 @@
 {/if}
 
 <style>
+  .hidden {
+    display: none;
+  }
+
+  .delete_button {
+    margin-left: auto;
+    height: 3rem;
+    width: 3rem;
+    font-size: 1.5rem;
+  }
+
   #editor-div {
     text-align: left;
   }
