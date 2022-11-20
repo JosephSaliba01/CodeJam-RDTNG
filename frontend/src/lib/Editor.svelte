@@ -166,50 +166,38 @@
   };
 </script>
 
-{#if editor}
-  <!--  <button-->
-  <!--          on:click={() => editor.chain().focus().toggleHeading({ level: 1}).run()}-->
-  <!--          class:active={editor.isActive('heading', { level: 1 })}-->
-  <!--  >-->
-  <!--    H1-->
-  <!--  </button>-->
-  <!--  <button-->
-  <!--          on:click={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}-->
-  <!--          class:active={editor.isActive('heading', { level: 2 })}-->
-  <!--  >-->
-  <!--    H2-->
-  <!--  </button>-->
-  <!--  <button on:click={() => editor.chain().focus().setParagraph().run()} class:active={editor.isActive('paragraph')}>-->
-  <!--    P-->
-  <!--  </button>-->
-{/if}
-
 <div id="main-view">
   <div id="editor-header">
     <div id="controls" />
-    {#if editor}
-      <button
-        disabled={$currentNote == null || $currentNote.questions.length <= 0}
-        on:click={enterQuizView}
-      >
-        Take quiz
-      </button>
-      <button
-        class="topButton"
-        disabled={$currentNote == null || $currentNote.questions.length <= 0}
-        on:click={enterFlashCardsView}
-      >
-        Flash cards
-      </button>
-      <button class="topButton" on:click={generateQuestions(editor.getJSON())}
-        >Generate Questions</button
-      >
-    {/if}
+    {#if editor}{/if}
   </div>
   <div id="editor-main">
     <Storage />
     <div id="editor-div" bind:this={element} on:drop={handleFilesSelect}>
-      <input type="text" bind:value={$currentTitle} class="title" />
+      <div id="title-div">
+        <input type="text" bind:value={$currentTitle} class="title" />
+        <button
+          on:click={deleteNote}
+          class="delete_button {$currentNote == null ? 'hidden' : ''}"
+          >🗑️
+        </button>
+        <button
+          disabled={$currentNote == null || $currentNote.questions.length <= 0}
+          on:click={enterQuizView}
+        >
+          Take quiz
+        </button>
+        <button
+          class="topButton"
+          disabled={$currentNote == null || $currentNote.questions.length <= 0}
+          on:click={enterFlashCardsView}
+        >
+          Flash cards
+        </button>
+        <button class="topButton" on:click={generateQuestions(editor.getJSON())}
+          >Generate Questions</button
+        >
+      </div>
       <div id="format-div">
         {#if editor}
           <button
@@ -252,11 +240,11 @@
           >
             <p style="font-style:italic">h</p>
           </button>
-          <button
-            on:click={deleteNote}
-            class="delete_button {$currentNote == null ? 'hidden' : ''}"
-            >🗑️
-          </button>
+
+          <p class="wordCount">
+            {editor.storage.characterCount.words()}
+            {editor.storage.characterCount.words() === 1 ? 'word' : 'words'}
+          </p>
         {/if}
       </div>
       <hr />
@@ -265,8 +253,21 @@
 </div>
 
 <style>
+  #title-div {
+    padding: 0;
+  }
+
+  #title-div > button {
+    min-height: 4rem;
+  }
+
+  .wordCount {
+    margin-left: 1rem;
+    font-size: 14px;
+  }
+
   .hidden {
-    display: none;
+    visibility: hidden;
   }
 
   .delete_button {
@@ -283,7 +284,6 @@
   .title {
     box-sizing: border-box;
     font-size: 2rem;
-    width: 100%;
     margin-top: 1rem;
     border-radius: 10px;
     border-style: solid;
