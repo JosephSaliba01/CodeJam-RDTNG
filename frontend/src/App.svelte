@@ -1,6 +1,8 @@
 <script>
   import Editor from './lib/Editor.svelte';
   import FlashCardsView from './lib/Flash-cards-view.svelte';
+  import Quiz from './lib/Quiz.svelte';
+  import QuizView from './lib/QuizView.svelte';
   import { appState } from './store.js';
   console.log($appState === 'editor');
 </script>
@@ -11,6 +13,9 @@
   </div>
   <div class={$appState === 'flashCards' ? '' : 'hidden'}>
     <FlashCardsView />
+  </div>
+  <div class={$appState === 'quiz' ? '' : 'hidden'}>
+    <QuizView/>
   </div>
 </main>
 

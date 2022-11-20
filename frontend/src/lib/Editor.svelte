@@ -17,6 +17,7 @@
   } from '../store';
 
   import Storage from './Storage.svelte';
+  import app from '../main';
   let element;
   let editor;
 
@@ -122,6 +123,10 @@
     if (value != null) editor.commands.setContent(value.note);
   });
 
+  let enterQuizView = () => {
+    appState.set('quiz');
+  }
+
   let enterFlashCardsView = () => {
     appState.set('flashCards');
   };
@@ -153,7 +158,7 @@
       disabled={$currentNote == null || $currentNote.questions.length <= 0}
       on:click={enterFlashCardsView}
     >
-      View questions
+      Take quiz
     </button>
       <button
         class="topButton"

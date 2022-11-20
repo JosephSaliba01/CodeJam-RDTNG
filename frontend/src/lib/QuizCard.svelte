@@ -9,8 +9,10 @@
         <p>{query}</p>
     </div>
     <div id="quiz-card-choices-view">
-        {#each choices as choice}
-            <button class="quiz-card-choice-button">{choice}</button>
-        {/each}
+        {#if Array.isArray(choices)}
+            {#each choices as choice}
+                <button class="quiz-card-choice-button">{choice}</button>
+            {/each}
+        {/if}
     </div>
 </div>
