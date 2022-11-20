@@ -62,7 +62,7 @@
   .noteButtonContainer {
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow-y: scroll;
     height: 80vh;
     margin: 0 !important;
     padding: 0 !important;
@@ -72,4 +72,21 @@
     text-align: left;
     width: 100%;
   }
+
+  .noteButtonContainer::-webkit-scrollbar-track {
+  background: #E8E8E8;
+  border-radius: 50px;
+}
+
+/* Handle */
+.noteButtonContainer::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+.noteButtonContainer::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  border-radius: 50px;
+}
 </style>
