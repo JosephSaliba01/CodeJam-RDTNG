@@ -62,6 +62,10 @@
   .noteButtonContainer {
     display: flex;
     flex-direction: column;
+    overflow: scroll;
+    height: 80vh;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .noteButton {
