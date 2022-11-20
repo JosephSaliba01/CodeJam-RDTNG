@@ -7,6 +7,9 @@ export const appState = writable('editor');
 export const allNotes = writable(localStorage.allNotes || '[]');
 export const currentId = writable(parseInt(localStorage.currentId) || 0);
 
+export const current_FC_index = writable(0);
+export const current_Q_index = writable(0);
+
 export const currentTitle = writable(
   'Note ' + parseInt(localStorage.currentId || 0)
 );

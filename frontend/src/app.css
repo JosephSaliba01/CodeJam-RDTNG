@@ -269,6 +269,28 @@ body {
   margin-bottom: 2vh !important;
 }
 
+.cards-view-bottom {
+  display: flex;
+  justify-content: space-around;
+  border-radius: 1rem;
+  width: 45%;
+  margin: auto;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.cards-view-bottom button {
+  font-size: 1.5rem;
+  width: 3rem;
+  height: 2.5rem;
+  border-radius: 10rem;
+}
+
+.cards-view-bottom span {
+  font-size: 2rem;
+  padding: 0.5rem;
+}
+
 html,
 body {
   margin: 0px;

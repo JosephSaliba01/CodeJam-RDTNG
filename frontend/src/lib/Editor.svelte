@@ -15,6 +15,8 @@
     appState,
     currentTitle,
     loading,
+    current_FC_index,
+    current_Q_index
   } from '../store';
 
   import Storage from './Storage.svelte';
@@ -127,10 +129,12 @@
   });
 
   let enterQuizView = () => {
+    current_Q_index.set(0);
     appState.set('quiz');
   };
 
   let enterFlashCardsView = () => {
+    current_FC_index.set(0);
     appState.set('flashCards');
   };
 </script>

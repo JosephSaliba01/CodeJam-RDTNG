@@ -28,4 +28,4 @@
 
 <button on:click={showEditor}>Back to editor</button>
 <button on:click={generatePdf}>Generate PDF</button>
-<Cards />
+<Cards/>

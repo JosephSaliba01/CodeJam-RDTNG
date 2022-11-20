@@ -22,7 +22,7 @@
   <button on:click={showEditor}>End quiz</button>
 </div>
 
-{#if timer < 1}
+{#if $timer < 1}
   <h1>Time's up!</h1>
 {:else}
   <h1><span class="mins">{minutes}</span>{minname} 
