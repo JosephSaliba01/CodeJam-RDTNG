@@ -1,22 +1,24 @@
 <script>
   import { not_equal } from 'svelte/internal';
-  import { allNotes, currentNote, currentId } from '../store.js';
+  import { allNotes, currentNote, currentId, currentTitle } from '../store.js';
 
   let setCurrentNote = (note) => {
     console.log(note);
     currentNote.set(note);
+    currentTitle.set(note.title);
   };
 
   let makeNewNote = () => {
     let storedArray = JSON.parse($allNotes);
     storedArray.push({
       id: $currentId,
-      title: 'title',
+      title: 'Note ' + $currentId,
       note: '',
       questions: [],
     });
     currentId.set($currentId + 1);
     currentNote.set(storedArray.at(-1));
+    currentTitle.set($currentNote.title);
     allNotes.set(JSON.stringify(storedArray));
   };
 </script>

@@ -8,7 +8,13 @@
   import StarterKit from '@tiptap/starter-kit';
   import CharacterCount from '@tiptap/extension-character-count';
   import { text } from 'svelte/internal';
-  import { currentNote, currentId, allNotes, appState } from '../store';
+  import {
+    currentNote,
+    currentId,
+    allNotes,
+    appState,
+    currentTitle,
+  } from '../store';
 
   import Storage from './Storage.svelte';
   let element;
@@ -81,7 +87,7 @@
     if ($currentNote == null) {
       storedArray.push({
         id: parseInt($currentId),
-        title: 'title',
+        title: $currentTitle,
         note: '',
         questions: [],
       });
@@ -94,6 +100,7 @@
     else {
       $currentNote.note = data;
       $currentNote.questions = responseJson.questions;
+      $currentNote.title = $currentTitle;
       storedArray[$currentNote.id] = $currentNote;
     }
 
@@ -142,14 +149,13 @@
     <div id="controls" />
     {#if editor}
       <button
+        class="topButton"
         disabled={$currentNote == null || $currentNote.questions.length <= 0}
         on:click={enterFlashCardsView}
       >
         View questions
       </button>
-      <button
-        style="margin-left: auto;"
-        on:click={generateQuestions(editor.getJSON())}
+      <button class="topButton" on:click={generateQuestions(editor.getJSON())}
         >Generate Questions</button
       >
     {/if}
@@ -157,6 +163,7 @@
   <div id="editor-main">
     <Storage />
     <div id="editor-div" bind:this={element} on:drop={handleFilesSelect}>
+      <input type="text" bind:value={$currentTitle} />
       <div id="format-div">
         {#if editor}
           <button
@@ -209,3 +216,18 @@
 {#if editor}
   <p>{editor.storage.characterCount.words()} words</p>
 {/if}
+
+<style>
+  #editor-header {
+    display: flex;
+    gap: 2%;
+  }
+
+  .topButton {
+    min-height: 50px;
+  }
+
+  #controls {
+    min-height: 50px;
+  }
+</style>
