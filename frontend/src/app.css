@@ -190,6 +190,7 @@ button:focus-visible {
 }
 
 .ProseMirror {
+  color: black;
   height: 75vh;
   text-align: left;
   overflow-y: scroll;

@@ -37,9 +37,24 @@
 </div>
 
 <style>
+  #storage-div {
+    background-color: rgb(232, 232, 232);
+    margin-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  #storage-div > * {
+    background-color: inherit;
+  }
+
+  #storage-div > * > * {
+    background-color: inherit;
+    color: rgb(93, 93, 93);
+  }
+
   .newNoteButton {
-    background-color: rgb(31, 144, 31);
-    color: white;
+    color: rgb(93, 93, 93);
     font-weight: 600;
     font-size: 20px;
   }

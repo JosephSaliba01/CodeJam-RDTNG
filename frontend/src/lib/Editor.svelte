@@ -262,6 +262,12 @@
 </div>
 
 <style>
+  #editor-div {
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
   .saveButton {
     background-color: rgb(157, 228, 254);
   }
