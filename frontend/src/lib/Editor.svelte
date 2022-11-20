@@ -165,7 +165,7 @@
         disabled={$currentNote == null || $currentNote.questions.length <= 0}
         on:click={enterFlashCardsView}
       >
-        View QA
+        Flash cards
       </button>
       <button class="topButton" on:click={generateQuestions(editor.getJSON())}
         >Generate Questions</button
