@@ -1,5 +1,6 @@
 import json
 
+
 class Quiz:
     def __init__(self, questions: list):
         self.questions = questions
