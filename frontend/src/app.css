@@ -264,9 +264,8 @@ body {
 }
 
 .question-div p {
-  margin: 0;
+  margin: auto;
   line-height: normal;
-  margin-bottom: 2vh !important;
 }
 
 .cards-view-bottom {
@@ -289,6 +288,10 @@ body {
 .cards-view-bottom span {
   font-size: 2rem;
   padding: 0.5rem;
+}
+
+.hidden, .shown {
+  display: flex;
 }
 
 html,
