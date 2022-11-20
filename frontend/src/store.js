@@ -4,7 +4,7 @@ export const currentNote = writable(null);
 
 // Get the value out of storage on load.
 export const allNotes = writable(localStorage.allNotes || '[]');
-export const currentId = writable(localStorage.currentId || 0);
+export const currentId = writable(parseInt(localStorage.currentId) || 0);
 
 // Anytime the store changes, update the local storage value.
 allNotes.subscribe((value) => (localStorage.allNotes = value));
