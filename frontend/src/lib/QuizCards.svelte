@@ -28,11 +28,15 @@
 
 {#if Array.isArray(questions)}
   {#if questions.length > $current_Q_index}
-    <QuizCard
-      query={questions[$current_Q_index].query}
-      choices={questions[$current_Q_index].choices}
-      answer={questions[$current_Q_index].answer}
-    />
+    {#each questions as question, index}
+      <div style="{index === $current_Q_index ? 'display: block' : 'display: none' }">
+        <QuizCard
+        query={question.query}
+        choices={question.choices}
+        answer={question.answer}
+        />
+      </div>
+    {/each}
     <div class="cards-view-bottom">
       <button on:click={prevCard}>&#60</button>
         {$current_Q_index + 1} / {questions.length}
