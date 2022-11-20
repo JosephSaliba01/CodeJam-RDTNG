@@ -32,8 +32,13 @@ body {
   min-height: 100vh;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  word-break: break-all;
+}
+
 h1 {
-  font-size: 3.2em;
+  margin: 0 !important;
+  font-size: 2.5em;
   line-height: 1.1;
 }
 
@@ -63,12 +68,19 @@ main {
 #editor-div {
   width: 75%;
   max-width: 75%;
-  font-size: 1.35rem;
+  font-size: 1.85rem;
+  padding-top: 0 !important;
 }
 
 #format-div {
   padding: 0.125rem !important;
-  height: 2vh;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+}
+
+#format-div button {
+  margin-right: 2vh;
 }
 
 #storage-div {
@@ -104,17 +116,54 @@ main {
   border-radius: 1rem;
 }
 
-/* button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+.format_button {
+  font-size: inherit;
   font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-} */
+  border: 1px solid white;
+  border-radius: 0.3rem;
+  padding: 0.1rem 0.4rem;
+  accent-color: black;
+  width: 5vh;
+  height: 5vh;
+}
+
+.format_button p{
+  margin:0;
+  font-size: 2.2rem;
+}
+
+.format_button:hover {
+  border: 1px solid white;
+  background-color: #e0e0e0;
+}
+
+.format_button:active {
+  background-color: #c0c0c0;
+}
+
+.format_button:focus {
+  outline: none;
+}
+
+.is_button_inactive {
+  color: #000;
+  background: white;
+}
+
+.is_button_active {
+  background: black;
+  color: #fff;
+}
+
+.is_button_active:hover {
+  background: black;
+  color: #fff;
+}
+
+.is_button_active:focus {
+  background: black;
+  color: #fff;
+}
 
 button:hover {
   border-color: #646cff;

@@ -1,6 +1,8 @@
 <script>
   // @ts-nocheck
 
+  import Bold from '@tiptap/extension-bold';
+  import Highlight from '@tiptap/extension-highlight';
   import { onMount, onDestroy } from 'svelte';
   import { Editor } from '@tiptap/core';
   import StarterKit from '@tiptap/starter-kit';
@@ -34,7 +36,7 @@
   onMount(() => {
     editor = new Editor({
       element: element,
-      extensions: [StarterKit, CharacterCount],
+      extensions: [StarterKit, CharacterCount, Bold, Highlight],
       content: '',
       autofocus: true,
       editable: true,
@@ -117,7 +119,7 @@
 
     </div>
     {#if editor}
-      <button style="margin-left: auto;" on:click={generateQuestions(editor.getJSON())}>Generate Questions</button>
+      <button style="margin-left: auto;" on:click={console.log(editor.isActive('bold'))}>Generate Questions</button>
     {/if}
   </div>
   <div id="editor-main">
@@ -128,9 +130,33 @@
     </div>
     <div id="editor-div" bind:this={element} on:drop={handleFilesSelect}>
       <div id="format-div">
-        <button on:click={editor.chain().focus().toggleBold().run()} class="">
-          B
-        </button> 
+        {#if editor}
+          <button on:click={editor.chain().focus().toggleHeading({ level: 1 }).run()} class="format_button {editor.isActive('heading', { level: 1 }) ? 'is_button_active' : 'is_button_inactive'}">
+            <p>
+              H1
+            </p>
+          </button>
+          <button on:click={editor.chain().focus().toggleHeading({ level: 2 }).run()} class="format_button {editor.isActive('heading', { level: 2 }) ? 'is_button_active' : 'is_button_inactive'}">
+            <p>
+              H2
+            </p>
+          </button>
+          <button on:click={editor.chain().focus().toggleBold().run()} class="format_button {editor.isActive('bold') ? 'is_button_active' : 'is_button_inactive'}">
+            <p style="font-weight: 700;">
+              B
+            </p>
+          </button>
+          <button on:click={editor.chain().focus().toggleItalic().run()} class="format_button {editor.isActive('italic') ? 'is_button_active' : 'is_button_inactive'}">
+            <p style="font-style:italic">
+              I
+            </p>
+          </button>
+          <button on:click={editor.chain().focus().toggleHighlight().run()} class="format_button {editor.isActive('highlight') ? 'is_button_active' : 'is_button_inactive'}">
+            <p style="font-style:italic">
+              h
+            </p>
+          </button> 
+        {/if}
       </div>
       <hr>
     </div>
