@@ -7,22 +7,25 @@
   let showEditor = () => appState.set('editor');
   let generatePdf = () => {
     const pdf = new jsPDF();
-    pdf.setFontSize(8);
 
+    pdf.setFontSize(16);
     pdf.text('Questions', 10, 10);
+
+    pdf.setFontSize(10);
     $currentNote.questions.forEach((element, index) => {
-      pdf.text(index + 1 + '.' + ' ' + element.query, 10, 10 + (index + 1) * 5);
+      let value = index % 25;
+      if (index != 0 && value == 0) pdf.addPage();
+      pdf.text(index + 1 + '.' + ' ' + element.query, 10, (value + 2) * 10);
     });
 
     pdf.addPage();
+    pdf.setFontSize(16);
     pdf.text('Answers', 10, 10);
-
+    pdf.setFontSize(10);
     $currentNote.questions.forEach((element, index) => {
-      pdf.text(
-        index + 1 + '.' + ' ' + element.answer,
-        10,
-        10 + (index + 1) * 5
-      );
+      let value = index % 25;
+      if (index != 0 && value == 0) pdf.addPage();
+      pdf.text(index + 1 + '.' + ' ' + element.answer, 10, (value + 2) * 10);
     });
 
     pdf.save('quiz.pdf');
