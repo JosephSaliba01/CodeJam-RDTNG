@@ -28,9 +28,11 @@
     <button class="newNoteButton" on:click={makeNewNote}>+ New Note</button>
     <div class="noteButtonContainer">
       {#each JSON.parse($allNotes) as note}
-        <button class="noteButton" on:click={() => setCurrentNote(note)}
-          >{note.title}</button
-        >
+        {#if note != null}
+          <button class="noteButton" on:click={() => setCurrentNote(note)}
+            >{note.title}</button
+          >
+        {/if}
       {/each}
     </div>
   </div>
