@@ -63,8 +63,8 @@
   let generateQuestions = async (data) => {
     // Clean up to only send final string
     let paragraphs = data.content;
-    
-    let array_of_paragraphs = []
+
+    let array_of_paragraphs = [];
 
     paragraphs.forEach((element) => {
       let paragraph = element.content;
@@ -125,7 +125,7 @@
 
   let enterQuizView = () => {
     appState.set('quiz');
-  }
+  };
 
   let enterFlashCardsView = () => {
     appState.set('flashCards');
@@ -155,11 +155,11 @@
     <div id="controls" />
     {#if editor}
       <button
-      disabled={$currentNote == null || $currentNote.questions.length <= 0}
-      on:click={enterFlashCardsView}
-    >
-      Take quiz
-    </button>
+        disabled={$currentNote == null || $currentNote.questions.length <= 0}
+        on:click={enterQuizView}
+      >
+        Take quiz
+      </button>
       <button
         class="topButton"
         disabled={$currentNote == null || $currentNote.questions.length <= 0}

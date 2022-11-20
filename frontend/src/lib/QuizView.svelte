@@ -1,7 +1,9 @@
 <script>
-    import QuizCards from "./QuizCards.svelte";
-    let showEditor = () => appState.set('editor');
+  import QuizCards from './QuizCards.svelte';
+  import { appState } from '../store';
+  let showEditor = () => appState.set('editor');
 </script>
-  <button on:click={showEditor}>End quiz</button>
 
-<QuizCards/>
+<button on:click={showEditor}>End quiz</button>
+
+<QuizCards />
