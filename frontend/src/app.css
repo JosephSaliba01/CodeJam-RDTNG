@@ -99,10 +99,6 @@ main {
   align-items: center;
 }
 
-#format-div button {
-  margin-right: 2vh;
-  
-}
 
 #storage-div {
   width: 25%;
@@ -149,7 +145,7 @@ main {
 
 .format_button p{
   margin:0;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
 }
 
 .format_button:hover {
