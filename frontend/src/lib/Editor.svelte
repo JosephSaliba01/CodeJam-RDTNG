@@ -21,6 +21,7 @@
 
   import Storage from './Storage.svelte';
   import app from '../main';
+  import Process from './Process.svelte';
   let element;
   let editor;
 
@@ -45,10 +46,24 @@
   onMount(() => {
     editor = new Editor({
       element: element,
-      extensions: [StarterKit, CharacterCount, Bold, Highlight],
+      extensions: [
+        StarterKit.configure({
+          listItem: false,
+          bulletList: false,
+          orderedList: false,
+          codeBlock: false,
+          blockquote: false,
+        }),
+
+        CharacterCount,
+        Bold,
+        Highlight,
+      ],
       content: '',
       autofocus: true,
       editable: true,
+      disablePasteRules: true,
+      disableInputRules: true,
       onTransaction: () => {
         // force re-render so `editor.isActive` works as expected
         editor = editor;
@@ -64,6 +79,8 @@
   });
 
   let generateQuestions = async (data) => {
+    console.log(data);
+
     loading.set(true);
 
     // Clean up to only send final string
@@ -72,9 +89,11 @@
     let array_of_paragraphs = [];
 
     paragraphs.forEach((element) => {
-      let paragraph = element.content;
-      if (!(paragraph == undefined)) {
-        array_of_paragraphs.push(paragraph[0].text);
+      if (element.type == 'paragraph') {
+        let paragraph = element.content;
+        if (!(paragraph == undefined)) {
+          array_of_paragraphs.push(paragraph[0].text);
+        }
       }
     });
 
@@ -137,52 +156,55 @@
     current_FC_index.set(0);
     appState.set('flashCards');
   };
-</script>
 
-{#if editor}
-  <!--  <button-->
-  <!--          on:click={() => editor.chain().focus().toggleHeading({ level: 1}).run()}-->
-  <!--          class:active={editor.isActive('heading', { level: 1 })}-->
-  <!--  >-->
-  <!--    H1-->
-  <!--  </button>-->
-  <!--  <button-->
-  <!--          on:click={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}-->
-  <!--          class:active={editor.isActive('heading', { level: 2 })}-->
-  <!--  >-->
-  <!--    H2-->
-  <!--  </button>-->
-  <!--  <button on:click={() => editor.chain().focus().setParagraph().run()} class:active={editor.isActive('paragraph')}>-->
-  <!--    P-->
-  <!--  </button>-->
-{/if}
+  let deleteNote = () => {
+    let storedArray = JSON.parse($allNotes);
+    var removeIndex = storedArray
+      .map((item) => item.id)
+      .indexOf($currentNote.id);
+    removeIndex >= 0 && storedArray.splice(removeIndex, 1);
+    allNotes.set(JSON.stringify(storedArray));
+    currentNote.set(null);
+    editor.commands.setContent('');
+    currentTitle.set('Note ' + $currentId);
+  };
+</script>
 
 <div id="main-view">
   <div id="editor-header">
     <div id="controls" />
-    {#if editor}
-      <button
-        disabled={$currentNote == null || $currentNote.questions.length <= 0}
-        on:click={enterQuizView}
-      >
-        Take quiz
-      </button>
-      <button
-        class="topButton"
-        disabled={$currentNote == null || $currentNote.questions.length <= 0}
-        on:click={enterFlashCardsView}
-      >
-        Flash cards
-      </button>
-      <button class="topButton" on:click={generateQuestions(editor.getJSON())}
-        >Generate Questions</button
-      >
-    {/if}
+    {#if editor}{/if}
   </div>
   <div id="editor-main">
     <Storage />
     <div id="editor-div" bind:this={element} on:drop={handleFilesSelect}>
-      <input type="text" bind:value={$currentTitle} class="title" />
+      <div id="title-div">
+        <input type="text" bind:value={$currentTitle} class="title" />
+        <button
+          on:click={deleteNote}
+          class="delete_button {$currentNote == null ? 'hidden' : ''}"
+          >🗑️
+        </button>
+        <button
+          class="topButton enterQuizButton"
+          disabled={$currentNote == null || $currentNote.questions.length <= 0}
+          on:click={enterQuizView}
+        >
+          Take quiz
+        </button>
+        <button
+          class="topButton enterFlashCardsButton"
+          disabled={$currentNote == null || $currentNote.questions.length <= 0}
+          on:click={enterFlashCardsView}
+        >
+          Flash cards
+        </button>
+        <button
+          class="topButton saveButton"
+          on:click={generateQuestions(editor.getJSON())}
+          >Save and Generate</button
+        >
+      </div>
       <div id="format-div">
         {#if editor}
           <button
@@ -225,6 +247,11 @@
           >
             <p style="font-style:italic">h</p>
           </button>
+
+          <p class="wordCount">
+            {editor.storage.characterCount.words()}
+            {editor.storage.characterCount.words() === 1 ? 'word' : 'words'}
+          </p>
         {/if}
       </div>
       <hr />
@@ -232,11 +259,45 @@
   </div>
 </div>
 
-{#if editor}
-  <p>{editor.storage.characterCount.words()} words</p>
-{/if}
-
 <style>
+  .saveButton {
+    background-color: rgb(157, 228, 254);
+  }
+
+  .enterFlashCardsButton:enabled {
+    background-color: rgb(157, 254, 193);
+  }
+
+  .enterQuizButton:enabled {
+    background-color: rgb(157, 254, 193);
+  }
+
+  #title-div {
+    padding: 0;
+  }
+
+  #title-div > button {
+    min-height: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .wordCount {
+    margin-left: 1rem;
+    font-size: 14px;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+
+  .delete_button {
+    margin-left: auto;
+    height: 3rem;
+    width: 3rem;
+    font-size: 1.5rem;
+  }
+
   #editor-div {
     text-align: left;
   }
@@ -244,7 +305,6 @@
   .title {
     box-sizing: border-box;
     font-size: 2rem;
-    width: 100%;
     margin-top: 1rem;
     border-radius: 10px;
     border-style: solid;
